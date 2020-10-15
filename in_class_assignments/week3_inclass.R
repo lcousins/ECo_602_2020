@@ -1,0 +1,27 @@
+install.packages("palmerpenguins")
+install.packages("here")
+require(palmerpenguins)
+require(here)
+library(palmerpenguins)
+class(penguins)
+penguins <- data.frame(penguins)
+head(palmerpenguins)
+
+mean(penguins$body_mass_g, na.rm=TRUE)
+head(penguins)
+summary(penguins)
+boxplot(penguins$bill_depth_mm)
+boxplot(bill_depth_mm ~ sex, data = penguins)
+par(mfrow = c(1, 2))
+boxplot(penguins$bill_depth_mm)
+
+png(filename = here("basic_boxplot.png"), width = 800, height = 600)
+boxplot(flipper_length_mm ~ sex, data = penguins)
+dev.off()
+
+png(filename = here("basic_coplot.png"), width = 800, height = 600)
+coplot(body_mass_g ~ flipper_length_mm | sex, data = penguins)
+dev.off()
+
+hist(penguins$body_mass_g)
+dev.off()
