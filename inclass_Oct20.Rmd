@@ -1,0 +1,61 @@
+---
+title: "In Class Exercise October 20"
+author: "Lucy Cousins"
+date: "10/20/2020"
+output: 
+  html_document: 
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Making a new chunk
+Windows - control+alt+i
+Macs - command+option+i
+
+I can give the code chunk a name by adding words in the curly braces
+
+
+## Reading a csv file
+
+I'm going to read some data from a csv (comma-separated-values) file.
+
+I can use read.csv() along with the path to the file to read the data into a data.frame.
+
+##Here's an example:
+
+```{r read_birds_data}
+require(here)
+dat_birds = read.csv(here("data", "hab.sta.csv"))
+dat_birds <- read.csv(here("data", "hab.sta.csv"))
+```
+
+## Previewing the contents of a data.frame
+
+I can use the head() function to print the first few lines of a data.frame.
+Here's an example with the birds data
+
+```{r head_function_demo}
+head(dat_birds)
+```
+##Histogram
+I will use hist() to create a historgram 
+```{r simple_plot}
+hist(dat_birds$aspect, col=5)
+```
+
+##Fancy Histogram
+```{r custom histogram 1}
+hist(
+  dat_birds$aspect, 
+  col=5, 
+  main='Aspect Histogram', 
+  xlab='Aspect',
+  breaks=18
+  )
+
+```
+
