@@ -320,7 +320,7 @@ div.tocify {
 <h1>Subsetting Operators and Functions</h1>
 <div id="section" class="section level2">
 <h2>[ ]</h2>
-<p>The hard brackets can be used to specify a column by index. This is useful if you do not know the name of a column, but you do know where it is relative to the others.</p>
+<p>The hard brackets can be used to specify a column by index. This is useful if you do not know the name of a column, but you <em>do</em> know where it is relative to the others.</p>
 <pre class="r"><code>require(palmerpenguins)
 
 # Subsetting the third column of palmerpenguins
@@ -342,7 +342,7 @@ penguins[3]</code></pre>
 </div>
 <div id="section-1" class="section level2">
 <h2>$</h2>
-<p>The dollar sign can be used if you know the name of a column, but not the index. It is useful if other people (who may not be as familiar with you as the data) will be reading your code. Also, it is useful because you may not always remember what numbers correspond to what columns.</p>
+<p>The dollar sign can be used if you know the name of a column, but not the index. It is useful if other people (who may not be as familiar with the data as you) will be reading your code. Also, it is useful because you may not always remember what numbers correspond to what columns.</p>
 <pre class="r"><code>penguins$bill_length_mm</code></pre>
 <pre class="scroll-250"><code>##   [1] 39.1 39.5 40.3   NA 36.7 39.3 38.9 39.2 34.1 42.0 37.8 37.8 41.1 38.6
 ##  [15] 34.6 36.6 38.7 42.5 34.4 46.0 37.8 37.7 35.9 38.2 38.8 35.3 40.6 40.5
@@ -402,8 +402,7 @@ penguins[3]</code></pre>
 <h2><code>c()</code></h2>
 <p>The function <code>c()</code> <em>combines</em> or <em>concatenates</em> its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).</p>
 <ul>
-<li>All of the elements must be of the same <em>type</em>.</li>
-<li>I can’t combine character and numeric types in the same call to <code>c()</code></li>
+<li>If the vector is atomic, all of the elements should be the same data type.</li>
 </ul>
 <p>Here are two examples using numeric and character/string data types:</p>
 <pre class="r"><code># Create a vector of numbers:
@@ -450,13 +449,15 @@ dat_1[1]</code></pre>
 </div>
 <div id="matrix" class="section level2">
 <h2><code>matrix()</code></h2>
-<p>The following code creates a matrix with 2 rows and 3 columns. A matrix can be thought of as a multidimensional vector.<br />
-- You can specify a vector in the first argument.</p>
+<p>The following code creates a matrix with 2 rows and 3 columns. A matrix can be thought of as a multidimensional vector.</p>
 <ul>
+<li><p>You can specify a vector in the first argument.</p></li>
 <li><p>Then you can specify how many rows (<code>nrow =</code>) and columns (<code>ncol =</code>))</p></li>
-<li><p>After that, you can use the parameter byrow to specify which diriection you want the numbers to increase.</p></li>
+<li><p>After that, you can use the parameter <code>byrow</code> to specify which diriection you want the numbers to increase.</p>
+<ul>
 <li><p>if <code>byrow = TRUE</code>, then the numbers will increase along columns in the horizontal direction, and then wrap to the next row when there are no more columns.</p></li>
 <li><p>if <code>byrow = FALSE</code>, then the numbers will increase down the columns in the vertical direction until there are no more rows, which is when it will wrap to the next column.</p></li>
+</ul></li>
 </ul>
 <pre class="r"><code># This is how you create a matrix
 matrix_1 = matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = TRUE)
@@ -480,7 +481,7 @@ matrix_1[ ,2]</code></pre>
 </div>
 <div id="length" class="section level2">
 <h2><code>length()</code></h2>
-<p>The length function returns ths length of any object in r. The only required parameter is the object you want to find the length of. The length can be thought of as the number of elements within that object, like the number of elements in a vector. This is particularly helpful for very long objects, such as a column in a csv file</p>
+<p>The length function returns ths length of any object in R. The only required parameter is the object you want to find the length of. The length can be thought of as the number of elements within that object, like the number of elements in a vector. This is particularly helpful for very long objects, such as a column in a csv file.</p>
 <pre class="r"><code>#Finding the length of the dataframe created earlier
 length(dat_1)</code></pre>
 <pre><code>## [1] 2</code></pre>
@@ -531,7 +532,7 @@ dim(matrix_1)</code></pre>
 <p>The <code>summary()</code> function displays summary information about a dataset. It is extremely useful for getting a general idea about the shape/size of the dataset. The informaiton displayed includes:</p>
 <ul>
 <li><p>categorical variables and the counts of each</p></li>
-<li><p>minimum, 1st quartile, median, mean, 3rd quartile, maximum and the number of NA values for numerical values</p></li>
+<li><p>minimum, 1st quartile, median, mean, 3rd quartile, maximum and the number of NA values.</p></li>
 </ul>
 <pre class="r"><code>summary(penguins)</code></pre>
 <pre class="scroll-250"><code>##       species          island    bill_length_mm  bill_depth_mm  
@@ -581,7 +582,7 @@ mean(penguins$flipper_length_mm, na.rm=TRUE)</code></pre>
 <p>I can use <code>plot()</code> to create scatterplots!</p>
 <ul>
 <li><p>The first argument is the column/formula that you want to plot</p></li>
-<li><p>If you don’t use the $ sign, you must use the <code>data =</code> argument, which is simply the name of the dataset you want to plot.</p></li>
+<li><p>If you don’t use the $ sign in the first argument, you must use the <code>data =</code> argument, which is simply the name of the dataset that you want to plot.</p></li>
 <li><p>I can use the <code>pch =</code> argument to change the symbol in the plot</p></li>
 <li><p>The <code>col =</code> argument specifies the color of the marks. It can be used to create a uniform color scheme across a .rmd document, or if you want to display multiple colors on one graph.</p></li>
 <li><p>The parameter <code>cex =</code> is used to specify how magnified the points are. If you have many points, it might make sense to make them smaller. 1 is the default.</p></li>
@@ -602,7 +603,7 @@ mean(penguins$flipper_length_mm, na.rm=TRUE)</code></pre>
 <div id="boxplot" class="section level2">
 <h2><code>boxplot()</code></h2>
 <p>I can use the <code>boxplot()</code> function to create a boxplot of the data. This will show the spread and quartiles of the data, as well as any outliers, however it may be difficult for inexperienced people to interpret.</p>
-<pre class="r"><code>boxplot&lt;- boxplot(penguins$flipper_length_mm~penguins$sex,
+<pre class="r"><code>boxplot &lt;- boxplot(penguins$flipper_length_mm~penguins$sex,
         ylab = 'Flipper Length',
         xlab = 'Sex',
         main = 'Boxplots')</code></pre>
@@ -624,7 +625,7 @@ histogram_2 &lt;- hist(penguins$flipper_length_mm, col=16, breaks=7, xlab='Flipp
 <div id="par-and-mfrow" class="section level2">
 <h2><code>par()</code> and <code>mfrow=</code></h2>
 <p>The <code>par()</code> function allows you to inspect the graphical parameters. It returns a number of different things, like the parameters of the axes, the default shapes drawn, and the spread of the data. If you’re curious about what sorts of things <code>par()</code> returns, use the <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/par"><code>?par()</code></a> function to see the documentation.</p>
-<p>The parameter <code>mfrow=</code> can be used if you want to display multiple plots on one display. It is useful if you need ot make side-by-side comparisons, especially if there is at least one shared variable between the graphs.</p>
+<p>The parameter <code>mfrow=</code> can be used if you want to display multiple plots on one display. It is useful if you need to make side-by-side comparisons, especially if there is at least one shared variable between the graphs.</p>
 <pre class="r"><code>par()</code></pre>
 <pre class="scroll-250"><code>## $xlog
 ## [1] FALSE
@@ -875,7 +876,7 @@ plot(penguins$bill_depth_mm~penguins$flipper_length_mm, pch=16, xlab='Flipper Le
 </div>
 <div id="dbinom" class="section level2">
 <h2><code>dbinom()</code></h2>
-<p><em><strong><code>dbinom()</code> gives the </strong>density function<strong> for the binomial distribution. It is similar to <code>dnorm()</code>. but it is <em>not</em> for the normal distribution. It can be thought of as the number of successes in a number of trials. The first parameter is the vector of quantities that you are looking for. In other words, it is the hypothetical number of successes. The second is the size of the dataset. The size is the number of trials and the prob is the probability of success. Use log=TRUE if you are using boolean values. The result is the probability of success for each number in the vectors.</strong></em></p>
+<p><code>dbinom()</code> gives the <strong>density function</strong> for the binomial distribution. It is similar to <code>dnorm()</code>. but it is <em>not</em> for the normal distribution. It can be thought of as the number of successes in a number of trials. The first parameter is the vector of quantities that you are looking for. In other words, it is the hypothetical number of successes. The second is the size of the dataset. The size is the number of trials and the prob is the probability of success. Use log=TRUE if you are using boolean values. The result is the probability of success for each number in the vectors.</p>
 <pre class="r"><code>dbinom(c(1,2,3,4,5), size=10, prob=.10, log=FALSE)</code></pre>
 <pre class="scroll-250"><code>## [1] 0.387420489 0.193710244 0.057395628 0.011160261 0.001488035</code></pre>
 </div>
@@ -916,7 +917,7 @@ plot(penguins$bill_depth_mm~penguins$flipper_length_mm, pch=16, xlab='Flipper Le
 </div>
 <div id="library" class="section level2">
 <h2><code>library()</code></h2>
-<p>The library function loads data packages. It is how you can get data into the working directory. If the package has not been installed beforehand, however, it will not execute. If you are confused about the difference between library and require see this <a href="https://yihui.org/en/2014/07/library-vs-require/">site</a>.</p>
+<p>The library function loads a data packages. It is how you can get data into the working directory. If the package has not been installed beforehand, however, it will not execute. If you are confused about the difference between <code>library()</code> and <code>require()</code> see this <a href="https://yihui.org/en/2014/07/library-vs-require/">site</a>.</p>
 <pre class="r"><code>library(palmerpenguins)
 head(penguins)</code></pre>
 <pre class="scroll-250"><code>## # A tibble: 6 x 8
@@ -932,7 +933,7 @@ head(penguins)</code></pre>
 </div>
 <div id="require" class="section level2">
 <h2><code>require()</code></h2>
-<p>The require funciton is another way to load data packages into theworking directory. This function will try to load the data, but if it is not installed, it will not create an error until the data is called later.If you are confused about the difference between library and require see this <a href="https://yihui.org/en/2014/07/library-vs-require/">site</a>.</p>
+<p>The require funciton is another way to load data packages into the working directory. This function will try to load the data, but if it is not installed, it will not create an error until the data is called later. If you are confused about the difference between <code>library()</code> and <code>require()</code> see this <a href="https://yihui.org/en/2014/07/library-vs-require/">site</a>.</p>
 <pre class="r"><code>require(palmerpenguins)
 head(penguins)</code></pre>
 <pre class="scroll-250"><code>## # A tibble: 6 x 8
@@ -948,8 +949,9 @@ head(penguins)</code></pre>
 </div>
 <div id="read.csv" class="section level2">
 <h2><code>read.csv()</code></h2>
-<p>The <code>read.csv()</code> function is another way to read data into the working directory. You can use a file path (relative to the working directory).</p>
-<pre class="r"><code>delomy_data &lt;- read.csv('../data/delomys.csv')
+<p>The <code>read.csv()</code> function is another way to read data into the working directory. The file needs to be installed on your device first, however. You can use a file path (relative to the working directory).</p>
+<pre class="r"><code>#The following code is relative to the Docs folder
+delomy_data &lt;- read.csv('../data/delomys.csv')
 head(delomy_data)</code></pre>
 <pre class="scroll-250"><code>##       X   genus         binomial body_mass body_length   age    sex
 ## 1 27526 Delomys Delomys dorsalis      50.5         259 adult female
@@ -970,6 +972,7 @@ head(delomy_data)</code></pre>
 <div id="part-2-data-anaylsis" class="section level1">
 <h1>Part 2: Data Anaylsis</h1>
 <p>Your data analysis materials will go here.</p>
+<p>Shapiro-Wilk’s</p>
 <pre class="r"><code>delomys &lt;- read.csv('../data/delomys.csv')
 summary(delomys)</code></pre>
 <pre class="scroll-250"><code>##        X             genus                     binomial   
@@ -1068,11 +1071,11 @@ legend(&quot;topleft&quot;, inset =  .03, legend= c('1 - F Adelie', '2 - M Adeli
 </div>
 <div id="using-both-the-histograms-and-normality-tests-do-you-think-the-unconditioned-body-masses-and-body-length-are-normally-distributed-contrast-your-visual-assessment-of-normality-to-the-results-of-the-numerical-normality-tests." class="section level4">
 <h4>Using both the histograms and normality tests, do you think the (unconditioned) body masses and body length are normally-distributed? Contrast your visual assessment of normality to the results of the numerical normality tests.</h4>
-<p>Since the p-value for the shapiro test on the body length is so low, I can conclude that the data is <em>not</em> normally distributed. The shapiro test on the body mass is also quite low, so I can conclude that that is also <em>not</em> normally distributed too. From a visual inspection, I can see how this is the case, since both histograms have elements that make me doubt the normality..</p>
+<p>Since the p-value for the shapiro test on the body length is so low, I can conclude that the data is <em>not</em> normally distributed. The shapiro test on the body mass is also quite low, so I can conclude that that is also <em>not</em> normally distributed. From a visual inspection, I can see how this is the case, since both histograms have elements that make me doubt the normality..</p>
 </div>
 <div id="examine-the-conditional-boxplots.-describe-any-graphical-evidence-you-see-for-body-mass-differences-based-on-species-andor-sex." class="section level4">
 <h4>Examine the conditional boxplots. Describe any graphical evidence you see for body mass differences based on species and/or sex.</h4>
-<p>The males are heavier than the females for all species. Furthermore, irrespective of gender, the Gentoo penguins appear to be heavier than the others. In general, the Adelie appear to be slightly heavier than the Adelie, however there is some overlap becaise the weights are so similar.</p>
+<p>The males are heavier than the females for all species. Furthermore, irrespective of gender, the Gentoo penguins appear to be heavier than the others. In general, the Adelie appear to be slightly heavier than the Chinstrap, however there is some overlap becaise the weights are so similar.</p>
 </div>
 <div id="model-building-questions" class="section level3">
 <h3>Model Building Questions</h3>

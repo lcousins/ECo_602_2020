@@ -54,7 +54,7 @@ During the Fall 2020 semester, I learned about R and it's applications in data s
 # Subsetting Operators and Functions
 
 ## [ ]
-The hard brackets can be used to specify a column by index.  This is useful if you  do not know the name of a column, but you do know where it is  relative to the others.
+The hard brackets can be used to specify a column by index.  This is useful if you do not know the name of a column, but you *do* know where it is relative to the others.
 ```{r, fig.height=7, class.output="scroll-250"}
 require(palmerpenguins)
 
@@ -63,7 +63,7 @@ penguins[3]
 ```
 
 ## $
-The dollar sign can be used if you know the name of a column, but not the index.  It is useful if other people (who may not be as familiar with you as the data) will be reading your code.  Also, it is useful because you may not always remember what numbers correspond to what columns.
+The dollar sign can be used if you know the name of a column, but not the index.  It is useful if other people (who may not be as familiar with the data as you) will be reading your code.  Also, it is useful because you may not always remember what numbers correspond to what columns.
 ```{r, fig.height=7, class.output="scroll-250"}
 penguins$bill_length_mm
 ```
@@ -87,13 +87,11 @@ creates tabbed content for all the following sections that are one-level below.
 
 
 
-
 ## `c()`
 
 The function `c()` *combines* or *concatenates* its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).
 
-- All of the elements must be of the same *type*.
-  - I can't combine character and numeric types in the same call to `c()`
+- If the vector is atomic, all of the elements should be the same data type.
 
 Here are two examples using numeric and character/string data types:
 
@@ -103,6 +101,7 @@ num_vec  = c(1, 4, 8, 9, 13)
 
 # Create a vector of characters/strings:
 char_vec = c("a", "fish", "data is cool")
+
 ```
 
 I can show the contents of a vector by typing the name of the vector, or using the `print()` function.
@@ -120,7 +119,7 @@ print(char_vec)
 
 How to subset a data frame:
 
--  If I know the name of a column, I can use the $ sign
+- If I know the name of a column, I can use the $ sign
 
 - Alternatively, if I know the *index* of the column, I can put the number inside hard brackets [ ].  If you want the first column, use the number 1, and so on.
 
@@ -144,15 +143,16 @@ dat_1[1]
 ## `matrix()`
 
 The following code creates a matrix with 2 rows and 3 columns. A matrix can be thought of as a multidimensional vector.  
+
 - You can specify a vector in the first argument.
 
 - Then you can specify how many rows (`nrow = `) and columns (`ncol = `))
 
-- After that, you can use the parameter byrow to specify which diriection you want the numbers to increase. 
+- After that, you can use the parameter `byrow` to specify which diriection you want the numbers to increase. 
 
-  - if `byrow = TRUE`, then the numbers will increase along columns in the horizontal direction, and then wrap to the next row when there are no more columns.  
-  
-  - if `byrow = FALSE`, then the numbers will increase down the columns in the vertical  direction until there are no more rows, which is when it will wrap to the next column.
+    - if `byrow = TRUE`, then the numbers will increase along columns in the horizontal direction, and then wrap to the next row when there are no more columns.  
+    
+    - if `byrow = FALSE`, then the numbers will increase down the columns in the vertical  direction until there are no more rows, which is when it will wrap to the next column.
 ```{r matrix_ex1, fig.height=7, class.output="scroll-250"}
 # This is how you create a matrix
 matrix_1 = matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = TRUE)
@@ -172,8 +172,8 @@ matrix_1[ ,2]
 
 
 ## `length()`
-The length function returns ths length of any object in r.  The only required parameter is the object you want to find the length  of.  The length can be thought of as the number of elements within that object, like the number of elements in a vector. 
-This is particularly helpful for very long objects, such as a column in a csv file
+The length function returns ths length of any object in R.  The only required parameter is the object you want to find the length  of.  The length can be thought of as the number of elements within that object, like the number of elements in a vector. 
+This is particularly helpful for very long objects, such as a column in a csv file.
 ```{r}
 #Finding the length of the dataframe created earlier
 length(dat_1)
@@ -228,7 +228,7 @@ The `summary()` function displays summary information about a dataset.  It is ex
 
 - categorical variables and the counts of each
 
-- minimum, 1st quartile, median, mean, 3rd quartile, maximum and the number of NA values for numerical values
+- minimum, 1st quartile, median, mean, 3rd quartile, maximum and the number of NA values.
 ```{r, class.output="scroll-250"}
 summary(penguins)
 ```
@@ -236,7 +236,7 @@ summary(penguins)
 ## `mean()`
 The `mean()` function returns the average of a numerical variable.  
 
-**Note:** if there are any  NA values in the column,  the mean will be `NA`, so be sure to tell the function to ignore those values in the parameters list using `na.rm=TRUE`. 
+**Note:** if there are any NA values in the column, the mean will be `NA`, so be sure to tell the function to ignore those values in the parameters list using `na.rm=TRUE`. 
 ```{r}
 # This is without removing NAs
 mean(penguins$flipper_length_mm)
@@ -247,7 +247,7 @@ mean(penguins$flipper_length_mm, na.rm=TRUE)
 
 
 ## `sd()`
-The `sd()` function  returns the standard deviation of a numerical column.  There are a couple of important things to note about this: 
+The `sd()` function returns the standard deviation of a numerical column.  There are a couple of important things to note about this: 
 
 - The standard deviation is the average distance of points to the mean.  It tells you how spread out the data is. 
 - If the data is not normally distributed, the standard deviation may not be the best way to represent the spread of the data.  Be careful to check the distribution using a histogram and/or using a scatterplot of the residual values.
@@ -265,7 +265,7 @@ I can use `plot()` to create scatterplots!
 
 - The first argument is the column/formula that you want to plot
 
-- If you don't use the $ sign, you must use the `data =` argument, which is simply the name of the dataset you want to plot.  
+- If you don't use the $ sign in the first argument, you must use the `data =` argument, which is simply the name of the dataset that you want to plot.  
 
 -  I can use the `pch =` argument to change the symbol in the plot
 
@@ -290,7 +290,7 @@ plot <- plot(bill_length_mm  ~ body_mass_g,
 ##`boxplot()`
 I can use the `boxplot()` function to create a boxplot of the data.  This will show the spread and quartiles of the data, as well as any outliers, however it may be difficult for inexperienced people to interpret.
 ```{r, fig.asp=.75, fig.height=2}
-boxplot<- boxplot(penguins$flipper_length_mm~penguins$sex,
+boxplot <- boxplot(penguins$flipper_length_mm~penguins$sex,
         ylab = 'Flipper Length',
         xlab = 'Sex',
         main = 'Boxplots')
@@ -312,7 +312,7 @@ histogram_2 <- hist(penguins$flipper_length_mm, col=16, breaks=7, xlab='Flipper 
 ##`par()` and `mfrow=`
 The `par()` function allows you to inspect the graphical parameters. It returns a number of different things, like the parameters of the axes, the default shapes drawn, and the spread of the data. If you're curious about what sorts of things `par()` returns, use the [`?par()`](https://www.rdocumentation.org/packages/graphics/versions/3.6.2/topics/par) function to see the documentation.
 
-The parameter `mfrow=` can be used if you want to display  multiple plots on one display. It is useful if you need ot make side-by-side comparisons, especially if there is at least one shared variable between the graphs.
+The parameter `mfrow=` can be used if you want to display multiple plots on one display. It is useful if you need to make side-by-side comparisons, especially if there is at least one shared variable between the graphs.
 ```{r, fig.height=7, class.output="scroll-250"}
 
 par()
@@ -337,7 +337,7 @@ dnorm(c(1,2,3,4,5), mean = 0, sd = 1, log=FALSE)
 ```
 
 ##`pnorm()`
-`pnorm()` gives the **cumulative density function** for the normal distribution. This means the probability of picking a value equal than or lesser to another value at random.  If you compute it over multiple values, it is *monotonically increasing*.  The first parameter is the number or vector you  want to find the probability for, the second is the mean of the distribution, and the third is the standard deviation.  
+`pnorm()` gives the **cumulative density function** for the normal distribution. This means the probability of picking a value equal than or lesser to another value at random.  If you compute it over multiple values, it is *monotonically increasing*.  The first parameter is the number or vector you want to find the probability for, the second is the mean of the distribution, and the third is the standard deviation.  
 
 The result is the probability of picking that value or any value less than it with those specifications.
 ```{r, fig.height=7, class.output="scroll-250"}
@@ -353,8 +353,8 @@ qnorm(.12, mean = 10, sd=1)
 ```
 
 ##`dbinom()`
-***`dbinom()` gives the **density function** for the binomial distribution. It is similar to `dnorm()`. but it is *not* for the normal distribution.  It can be  thought of as the number of successes in a number of trials.  The first parameter is the vector of quantities that you are looking for.  In other words, it is the hypothetical number of successes. The second is the size of the dataset. The size is the number of trials and the prob is the probability of success.  Use log=TRUE if you are using boolean values.
-The result is the probability of success for each number in the vectors.***
+`dbinom()` gives the **density function** for the binomial distribution. It is similar to `dnorm()`. but it is *not* for the normal distribution.  It can be  thought of as the number of successes in a number of trials.  The first parameter is the vector of quantities that you are looking for.  In other words, it is the hypothetical number of successes. The second is the size of the dataset. The size is the number of trials and the prob is the probability of success.  Use log=TRUE if you are using boolean values.
+The result is the probability of success for each number in the vectors.
 ```{r, fig.height=7, class.output="scroll-250"}
 dbinom(c(1,2,3,4,5), size=10, prob=.10, log=FALSE)
 ```
@@ -384,14 +384,14 @@ subset(penguins,  body_mass_g < 4000)
 ```
 
 ##`library()`
-The library function loads data packages. It is how you can get data into the working directory.  If the package has not been installed beforehand, however, it will not execute. If you  are confused about the difference between library and require see this [site](https://yihui.org/en/2014/07/library-vs-require/).
+The library function loads a data packages. It is how you can get data into the working directory.  If the package has not been installed beforehand, however, it will not execute. If you are confused about the difference between `library()` and `require()` see this [site](https://yihui.org/en/2014/07/library-vs-require/).
 ```{r, fig.height=7, class.output="scroll-250"}
 library(palmerpenguins)
 head(penguins)
 ```
 
 ##`require()`
-The require funciton is another way to load data packages into theworking directory. This function will try to load the data, but if it is not installed, it will not create an error until the data is called later.If you  are confused about the difference between library and require see this [site](https://yihui.org/en/2014/07/library-vs-require/).
+The require funciton is another way to load data packages into the working directory. This function will try to load the data, but if it is not installed, it will not create an error until the data is called later. If you are confused about the difference between `library()` and `require()` see this [site](https://yihui.org/en/2014/07/library-vs-require/).
 ```{r, fig.height=7, class.output="scroll-250"}
 require(palmerpenguins)
 head(penguins)
@@ -399,8 +399,9 @@ head(penguins)
 
 
 ##`read.csv()`
-The `read.csv()` function is another way to read data into the working directory.  You can use a file path (relative to the working directory).
+The `read.csv()` function is another way to read data into the working directory.  The file needs to be installed on your device first, however. You can use a file path (relative to the working directory).
 ```{r, fig.height=7, class.output="scroll-250"}
+#The following code is relative to the Docs folder
 delomy_data <- read.csv('../data/delomys.csv')
 head(delomy_data)
 ```
@@ -408,6 +409,8 @@ head(delomy_data)
 # Part 2: Data Anaylsis
 
 Your data analysis materials will go here.
+
+Shapiro-Wilk's 
 ```{r, fig.height=7, class.output="scroll-250"}
 delomys <- read.csv('../data/delomys.csv')
 summary(delomys)
@@ -481,7 +484,7 @@ legend("topleft", inset =  .03, legend= c('1 - F Adelie', '2 - M Adelie', '3 - F
 
 ## Questions
 #### Qualitatively describe the relationship between body mass and length.  Does the relationship seem linear, curved, nonexistent?
-When not accounting for species differentiation, the relationship between body mass and length seems mostly linear with a positive slope. It could also be interprested as slightly concave down, increasing.  There are a few points with a high length, and these likely correspond to one specific species.
+When not accounting for species differentiation, the relationship between body mass and length seems mostly linear with a positive slope. It could also be interprested as slightly concave down, increasing. There are a few points with a high length, and these likely correspond to one specific species.
 
 #### Qualitatively describe the shapes of the histograms. Do the data appear normally-distributed? Explain why or why not.
 The histogram of body mass appears to be skewed right slightly. The mode is aroung 3500, which is sharply decreasing to the left side.  However, looking at the right side, the frequency diminishes more gradually.
@@ -489,11 +492,11 @@ The histogram of body mass appears to be skewed right slightly. The mode is arou
 The histogram of flipper length appears to be bimodal when graphed with 14 bins.  Even when graphed with 7 bins, the data appears bimodal, however it is less obvious in this case. 
 
 #### Using both the histograms and normality tests, do you think the (unconditioned) body masses and body length are normally-distributed? Contrast your visual assessment of normality to the results of the numerical normality tests.
-Since the p-value for the shapiro test on the body length is so low, I can conclude that the data is *not* normally distributed.  The shapiro test on the body mass is also quite low, so I can conclude that that is also *not* normally distributed too.  From a visual inspection, I can see how this is the case,  since both histograms have elements that make me doubt the normality..  
+Since the p-value for the shapiro test on the body length is so low, I can conclude that the data is *not* normally distributed.  The shapiro test on the body mass is also quite low, so I can conclude that that is also *not* normally distributed.  From a visual inspection, I can see how this is the case, since both histograms have elements that make me doubt the normality..  
 
 
 #### Examine the conditional boxplots. Describe any graphical evidence you see for body mass differences based on species and/or sex.
-The males are heavier than the females for all species.  Furthermore, irrespective of gender, the Gentoo penguins appear to be heavier than the others. In general, the Adelie appear to be slightly heavier than the Adelie, however there is some overlap becaise the weights are so similar.
+The males are heavier than the females for all species.  Furthermore, irrespective of gender, the Gentoo penguins appear to be heavier than the others. In general, the Adelie appear to be slightly heavier than the Chinstrap, however there is some overlap becaise the weights are so similar.
 
 ### Model Building Questions
 ```{r, fig.height=7, class.output="scroll-250"}
