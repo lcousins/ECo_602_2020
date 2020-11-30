@@ -23,27 +23,6 @@ options(knitr.duplicate.label = TRUE)
 
 <!-- The following text won't be displayed in your document.  It tells R how to make nicer looking buttons for your tabbed content. -->
 
-<style type="text/css" rel="stylesheet">
-
-.btn {
-    border-width: 0 0 0 0;
-    font-weight: normal;
-    text-transform: none;
-}
-
-.btn-default {
-    color: #2ecc71;
-    background-color: #ffffff;
-    border-color: #ffffff;
-}
-.scroll-250 {
-  max-height: 250px;
-  overflow-y: auto;
-  background-color: inherit;
-}
-
-</style>
-
 
 # Introduction
 
@@ -590,4 +569,25 @@ The two models that have the lowest AIC are the additive model and  the single-p
 
 ####Which of the two models with lowest AIC scores would you select? Explain your decision based on model fit and the complexity/understanding tradeoff.
 I would use the additive model because, even though it is more complex to write/understand, it simplifies the overall process by only requiring one function.  Also, the model fits the data quite well, and it has low p-values for both species and sex.
+
+<style type="text/css" rel="stylesheet">
+
+.btn {
+    border-width: 0 0 0 0;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.btn-default {
+    color: #2ecc71;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+.scroll-250 {
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: inherit;
+}
+
+</style>
  
