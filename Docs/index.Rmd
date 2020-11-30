@@ -5,7 +5,7 @@ author: "Lucy Cousins"
 date: "Fall 2020"
 output:
   html_document:
-    theme: readable
+  #  theme: readable
     toc: TRUE
     toc_float: TRUE
 editor_options:
@@ -495,6 +495,8 @@ fit4 <- lm(body_mass ~ sex + binomial, data = delomys)
 fit5 <- lm(body_mass ~ sex * binomial, data = delomys)
 ```
 
+
+## USE AIC()
 ### Model Diagnostics
 ```{r, fig.height=7, class.output="scroll-250"}
 #Plotting Histograms of Residual and shapiro test
