@@ -5,7 +5,7 @@ author: "Lucy Cousins"
 date: "Fall 2020"
 output:
   html_document:
-  #  theme: readable
+    theme: readable
     toc: TRUE
     toc_float: TRUE
 editor_options:
@@ -28,7 +28,7 @@ options(knitr.duplicate.label = TRUE)
 
 During the Fall 2020 semester, I learned about R and it's applications in data science in ECo 602. My knowledge grew substantially in topics ranging from deterministic functions to linear models to frequentist concepts.  Here is an amalgamation of what I learned! 
 
-*\*Note that the answers to the questions are at the vey bottom of the page.*
+*\*Note that the answers to the questions are at the bottom of the page.*
 
 # Subsetting Operators and Functions
 
@@ -50,7 +50,7 @@ penguins$bill_length_mm
 ## subset()
 The subset function is useful if you have specific parameters for data that you need in a column. It allows for a lot of freedom  while subsetting.
 ```{r, fig.height=7, class.output="scroll-250"}
-subset(penguins,  bill_length_mm < 190)
+subset(penguins,  bill_length_mm < 40)
 ```
 
 
@@ -58,7 +58,7 @@ subset(penguins,  bill_length_mm < 190)
 
 The code:
 
-{.tabset .tabset-pills}
+`{.tabset .tabset-pills}`
 
 creates tabbed content for all the following sections that are one-level below.
 
@@ -95,6 +95,8 @@ print(char_vec)
 
 
 ## `data.frame()`
+
+The `data.frame()` function creates a dataframe in R.  A dataframe is like a dataset or a table with rows  and  columns.
 
 How to subset a data frame:
 
@@ -135,13 +137,12 @@ The following code creates a matrix with 2 rows and 3 columns. A matrix can be t
 ```{r matrix_ex1, fig.height=7, class.output="scroll-250"}
 # This is how you create a matrix
 matrix_1 = matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = TRUE)
-matrix_1a = matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = FALSE)
-
-# I can print the contents of the matrix by simply typing the variable name
 matrix_1
+
+matrix_1a = matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow = FALSE)
 matrix_1a
 
-# If I want to subset the matrix, maybe by only printing the second row, I would use the following code
+# If I want to subset the matrix, like by only printing the second row, I would use the following code
 matrix_1[2, ]
 
 #I can use a similar approach to subset by column, but this time I would put the number after the comma
@@ -162,7 +163,6 @@ length(matrix_1)
 
 #Finding the length of the elev column in palmerpenguins
 #load the penguins package
-require(palmerpenguins)
 length(penguins$bill_length_mm)
 ```
 
@@ -272,7 +272,8 @@ I can use the `boxplot()` function to create a boxplot of the data.  This will s
 boxplot <- boxplot(penguins$flipper_length_mm~penguins$sex,
         ylab = 'Flipper Length',
         xlab = 'Sex',
-        main = 'Boxplots')
+        main = 'Boxplots',
+        col=16)
 ```
 
 
@@ -389,7 +390,7 @@ head(delomy_data)
 
 Your data analysis materials will go here.
 
-Shapiro-Wilk's 
+**Shapiro-Wilk's** 
 ```{r, fig.height=7, class.output="scroll-250"}
 delomys <- read.csv('../data/delomys.csv')
 summary(delomys)
@@ -397,85 +398,71 @@ shapiro.test(delomys$body_mass)
 shapiro.test(delomys$body_length)
 ```
 
-A scatterplot of body mass and body length
+**A scatterplot of body mass and body length**
 ```{r scatterplot_2, fig.asp=.75, fig.height=2}
-plot <- plot(bill_length_mm ~ body_mass_g, 
+plot <- plot(body_length ~ body_mass, 
      col=16,
-     data=penguins,
+     data=delomys,
      pch = 16,
      cex = .75,
      xlab = 'Body Mass',
-     ylab = 'Length',
+     ylab = 'Body Length',
      main = 'Scatterplots')
 ```
 
 
-A histogram of body mass
+**A histogram of body mass**
 ```{r, fig.height=7, class.output="scroll-250"}
-histogram_2 <- hist(penguins$body_mass_g, 
+histogram_2 <- hist(delomys$body_mass, 
   col=16, 
   xlab='Body Mass', 
   main='Histograms')
 
 ```
 
-A histogram of body length
+**A histogram of body length**
 ```{r, fig.height=7, class.output="scroll-250"}
-histogram_3 <- hist(penguins$bill_length_mm,
+histogram_3 <- hist(delomys$body_length,
   col=16, 
-  xlab='Bill Length', 
+  xlab='Body Length', 
   main='Histograms')
 ```
 
-A conditional boxplot of body mass, conditioned on species (column binomial)
+**A conditional boxplot of body mass, conditioned on species (column binomial)**
 ```{r, fig.height=7, class.output="scroll-250"}
-boxplot_2 <- boxplot(body_mass_g~species,
-        data = penguins,
+boxplot_2 <- boxplot(body_mass~binomial,
+        data = delomys,
         ylab = 'Body Mass',
         xlab = 'Species',
         main = 'Boxplots', 
         col = 16)
 ```
 
-A conditional boxplot of body mass, conditioned on sex (column binomial)
+**A conditional boxplot of body mass, conditioned on sex (column binomial)**
 ```{r, fig.height=7, class.output="scroll-250"}
-boxplot<- boxplot(body_mass_g~sex,
-        data = penguins,
+boxplot<- boxplot(body_mass~sex,
+        data = delomys,
         ylab = 'Body Mass',
         xlab = 'Sex',
         main = 'Boxplots',
         col=16)
 ```
 
-A conditional boxplot of body mass, conditioned on both species and sex
+**A conditional boxplot of body mass, conditioned on both species and sex**
 ```{r, fig.height=7, class.output="scroll-250"}
 # create the boxplot
-boxplot(body_mass_g ~ sex + species, 
-        data = penguins, 
+boxplot(body_mass ~ sex + binomial, 
+        data = delomys, 
         xlab = 'Sex and Species',
         ylab = 'Body Mass',
         main = 'Conditional Boxplots',
-        names = list('1','2','3','4','5','6'),
+         names = list('1','2','3','4'),
         col=16)
 # create a legend for the boxplot
-legend("topleft", inset =  .03, legend= c('1 - F Adelie', '2 - M Adelie', '3 - F Chinstrap', '4 - M Chinstrap', '5 - F Gentoo', '6 - M Gentoo'), box.lty = 1)
+legend("top", legend= c('1 - F Delomys dorsalis', '2 - M Delomys dorsalis', '3 - Delomys sublineatus', '4 - M Delomys sublineatus'), box.lty = 1, pt.cex = 1, cex = .65)
 ```
 
-## Questions
-#### Qualitatively describe the relationship between body mass and length.  Does the relationship seem linear, curved, nonexistent?
-When not accounting for species differentiation, the relationship between body mass and length seems mostly linear with a positive slope. It could also be interprested as slightly concave down, increasing. There are a few points with a high length, and these likely correspond to one specific species.
 
-#### Qualitatively describe the shapes of the histograms. Do the data appear normally-distributed? Explain why or why not.
-The histogram of body mass appears to be skewed right slightly. The mode is aroung 3500, which is sharply decreasing to the left side.  However, looking at the right side, the frequency diminishes more gradually.
-
-The histogram of flipper length appears to be bimodal when graphed with 14 bins.  Even when graphed with 7 bins, the data appears bimodal, however it is less obvious in this case. 
-
-#### Using both the histograms and normality tests, do you think the (unconditioned) body masses and body length are normally-distributed? Contrast your visual assessment of normality to the results of the numerical normality tests.
-Since the p-value for the shapiro test on the body length is so low, I can conclude that the data is *not* normally distributed.  The shapiro test on the body mass is also quite low, so I can conclude that that is also *not* normally distributed.  From a visual inspection, I can see how this is the case, since both histograms have elements that make me doubt the normality..  
-
-
-#### Examine the conditional boxplots. Describe any graphical evidence you see for body mass differences based on species and/or sex.
-The males are heavier than the females for all species.  Furthermore, irrespective of gender, the Gentoo penguins appear to be heavier than the others. In general, the Adelie appear to be slightly heavier than the Chinstrap, however there is some overlap becaise the weights are so similar.
 
 ### Model Building Questions
 ```{r, fig.height=7, class.output="scroll-250"}
@@ -493,10 +480,11 @@ fit4 <- lm(body_mass ~ sex + binomial, data = delomys)
   
 # Model 5: 2-way factorial ANOVA
 fit5 <- lm(body_mass ~ sex * binomial, data = delomys)
+
+AIC(fit1, fit2, fit3, fit4, fit5)
 ```
 
 
-## USE AIC()
 ### Model Diagnostics
 ```{r, fig.height=7, class.output="scroll-250"}
 #Plotting Histograms of Residual and shapiro test
@@ -531,8 +519,23 @@ knitr::kable(coef(summary(fit5)))
 knitr::kable(anova(fit5))
 ```
 
+## Questions
+#### Qualitatively describe the relationship between body mass and length.  Does the relationship seem linear, curved, nonexistent?
+The relationship between body mass and length seems mostly linear with a positive slope. It could also be interprested as slightly concave down, increasing since there are seemingly more values above the majority of points than below. (There are a few points with considerably high length, but they are not proportionally more massive)
+
+#### Qualitatively describe the shapes of the histograms. Do the data appear normally-distributed? Explain why or why not.
+The histogram of body mass appears to be skewed right slightly. The mode is aroung 30-50, which is sharply decreasing to the left side.  However, looking at the right side, the frequency diminishes more gradually.
+
+The histogram of body length appears to be skewed left. Although  there are values wiht a high length, there are very few of these.  The majority of the data is around 100-125, with the frequency sharply decreasing at higher lengths.
+
+#### Using both the histograms and normality tests, do you think the (unconditioned) body masses and body length are normally-distributed? Contrast your visual assessment of normality to the results of the numerical normality tests.
+Since the p-value for the body length are so low, I can conclude that the data is *not* normally distributed.  The shapiro test on the body mass is also quite low, so I can conclude that that is also *not* normally distributed.  From a visual inspection, I can see how this is the case, since both histograms have elements that make me doubt the normality.  
+
+#### Examine the conditional boxplots. Describe any graphical evidence you see for body mass differences based on species and/or sex.
+The males are heavier than the females for both species.  Furthermore, irrespective of gender, the Delomys sublineatus appear to be heavier than the Delomys dorsalis. 
+
 ####What do you conclude about residual normality based on the numerical and graphical diagnostics?  
-Based on the results of the residual test, I can conclude that none of the residual models are normally distributed.  From the shapiro test, I can see that the p-value is quite low, suggesting that I can reject the null hypothesis that they would be normally distributed, and instead conclude that they are not.  From a rough visual inspection, this is less obvious, however, when inspecting more closely, I can see how it is true.  
+Based on the results of the residual test, I can conclude that none of the residual models are normally distributed.  From the shapiro test, I can see that the p-value is quite low, suggesting that I can reject the null hypothesis that they would be normally distributed, and instead conclude that they are not.   
 
 ####Are violations of the normality assumption equally severe for all the models.
 Violations of the normality assumption are the largest in fit1 (body length vs body mass), and the smallest in fit2 (body mass vs sex).  Even in the body mass vs sex example, however, the p-value is small enough to reject the null hypothesis by a significant margin.
@@ -541,7 +544,7 @@ Violations of the normality assumption are the largest in fit1 (body length vs b
 The magnitude of the mass/length relationship is 0.87550.
 
 #### What is the expected body length of an an animal that weighs 100g?
-The expected body length of an animal that weighs 100g is 163.67466 mm.
+The expected body length of an animal that weighs 100g is 163.671466 mm.
 
 #### What is the expected body length of an animal that weighs 0g?
 The expected body length of an animal that weighs 0g is 76.12466 mm.
@@ -567,10 +570,10 @@ Yes, both have a relatively steep slope and there are very low p-values.  This i
 The p-value is very low for both the single-predictor models and the additive model. However, the single-predictor model for sex has p-values that are not quite as low as the additive model (but they still meet the  criteria for being significant).
 
 ####Which two models have the lowest AIC?
-The two models that have the lowest AIC are the additive model and  the single-predictor model of species.
+The two models that have the lowest AIC are fit 1, the simple linear regression, and fit 5, the 2-way factorial anova.
 
 ####Which of the two models with lowest AIC scores would you select? Explain your decision based on model fit and the complexity/understanding tradeoff.
-I would use the additive model because, even though it is more complex to write/understand, it simplifies the overall process by only requiring one function.  Also, the model fits the data quite well, and it has low p-values for both species and sex.
+I would use fit1, the simple linear regression model.  This is because it has a low AIC and it would be far easier for a regular person to understand. The simplicity of a linear regression model is not negligible and the fact that it also has a low AIC is great.  
 
 <style type="text/css" rel="stylesheet">
 
